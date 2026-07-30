@@ -4,9 +4,9 @@ import "./App.css";
 
 function App() {
   const [documents, setDocuments] = useState([]);
-  const [documentType, setDocumentType] = useState("");
+  
   const [search, setSearch] = useState("");
-  const [skill, setSkill] = useState("");
+  
   const uploadFile = async (file) => {
   const formData = new FormData();
 
@@ -18,8 +18,7 @@ function App() {
       formData
     );
 
-  setDocumentType(response.data.documentType);
-  setSkill(response.data.skill);
+  return response.data;
   } catch (error) {
   console.log(error);
 }
@@ -39,20 +38,23 @@ const filteredDocuments = documents.filter((doc) =>
   <input
   type="file"
   hidden
-  onChange={(event) => {
+  onChange={async (event) => {
   const file = event.target.files[0];
-  const fileName = file.name;
+
+  if (!file) return;
+  const aiData = await uploadFile(file);
 
   setDocuments((prevDocuments) => [
   ...prevDocuments,
   {
-    fileName: file.name,
-    documentType: "",
-    skill: "",
-  },
+  fileName: file.name,
+  documentType: aiData.documentType,
+  skill: aiData.skill,
+  status: aiData.status,
+},
 ]);
 
-  uploadFile(file);   // <-- THIS IS THE IMPORTANT LINE
+     // <-- THIS IS THE IMPORTANT LINE
 
   }}
 />
@@ -81,11 +83,14 @@ const filteredDocuments = documents.filter((doc) =>
 {filteredDocuments.map((doc, index) => (
   <div key={index}>
     <p>📄 {doc.fileName}</p>
-    <p>🟢 Uploaded Successfully</p>
+    <p>📂 {doc.documentType}</p>
+    <p>🧠 {doc.skill}</p>
+    <p>✅ {doc.status}</p>
+    
   </div>
 ))}
 
-<p>📂 Document Type: {documentType}</p>
+
 
 </div>
 
@@ -98,7 +103,7 @@ const filteredDocuments = documents.filter((doc) =>
   <h3>🧠 Skills</h3>
   <p>{documents.length}</p>
 
-  {skill && <p>Latest Skill: {skill}</p>}
+  
 </div>
 
   <div className="card">
