@@ -24,8 +24,16 @@ function App() {
 }
 };
 const filteredDocuments = documents.filter((doc) =>
-  doc.fileName.toLowerCase().includes(search.toLowerCase())
+  doc.fileName.toLowerCase().includes(search.toLowerCase()) ||
+  doc.documentType.toLowerCase().includes(search.toLowerCase()) ||
+  doc.skill.toLowerCase().includes(search.toLowerCase())
 );
+const certificateCount = documents.filter(
+  (doc) => doc.documentType === "Certificate"
+).length;
+const skillCount = new Set(documents.map((doc) => doc.skill)).size;
+const projectCount = skillCount;
+const internshipCount = skillCount;
   return (
     <div className="app">
       <header className="hero">
@@ -61,12 +69,12 @@ const filteredDocuments = documents.filter((doc) =>
 </label>
       </header>
     <section className="snapshot">
-  <h2>Journey Snapshot</h2>
+  <h2>📊 AI Journey Dashboard</h2>
 
   <div className="card">
   <h3>📜 Certificates</h3>
 
-  <p>{documents.length}</p>
+  <p>{certificateCount}</p>
 
   <input
   type="text"
@@ -74,7 +82,7 @@ const filteredDocuments = documents.filter((doc) =>
   value={search}
   onChange={(event) => setSearch(event.target.value)}
 />
-<p>Search: {search}</p>
+
 
 {documents.length > 0 && filteredDocuments.length === 0 && (
   <p>❌ No documents found.</p>
@@ -96,20 +104,42 @@ const filteredDocuments = documents.filter((doc) =>
 
   <div className="card">
     <h3>💻 Projects</h3>
-    <p>0</p>
+    <p>{projectCount}</p>
   </div>
 
   <div className="card">
   <h3>🧠 Skills</h3>
-  <p>{documents.length}</p>
-
+  <p>{skillCount}</p>
   
 </div>
 
   <div className="card">
     <h3>💼 Internships</h3>
-    <p>0</p>
+    <p>{internshipCount}</p>
   </div>
+  <div className="card">
+    <h3>🧠 AI Relationships</h3>
+    {documents.map((doc, index) => (
+  <div key={index}>
+    <p>📄 {doc.fileName}</p>
+    <p>⬇️</p>
+    <p>🧠 {doc.skill}</p>
+    <p>⬇️</p>
+    <p>💻 {doc.skill} Project</p>
+  </div>
+))}
+  </div>
+  <div className="card">
+  <h3>📅 Digital Journey Timeline</h3>
+
+  {documents.map((doc, index) => (
+    <div key={index}>
+      <p>2026</p>
+      <p>│</p>
+      <p>└── 📜 {doc.fileName}</p>
+    </div>
+  ))}
+</div>
 </section>
     </div>
   );
