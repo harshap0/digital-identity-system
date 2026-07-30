@@ -5,6 +5,7 @@ import "./App.css";
 function App() {
   const [documents, setDocuments] = useState([]);
   const [documentType, setDocumentType] = useState("");
+  const [search, setSearch] = useState("");
   const [skill, setSkill] = useState("");
   const uploadFile = async (file) => {
   const formData = new FormData();
@@ -23,6 +24,9 @@ function App() {
   console.log(error);
 }
 };
+const filteredDocuments = documents.filter((doc) =>
+  doc.fileName.toLowerCase().includes(search.toLowerCase())
+);
   return (
     <div className="app">
       <header className="hero">
@@ -62,7 +66,19 @@ function App() {
 
   <p>{documents.length}</p>
 
-  {documents.map((doc, index) => (
+  <input
+  type="text"
+  placeholder="🔍 Search documents..."
+  value={search}
+  onChange={(event) => setSearch(event.target.value)}
+/>
+<p>Search: {search}</p>
+
+{documents.length > 0 && filteredDocuments.length === 0 && (
+  <p>❌ No documents found.</p>
+)}
+
+{filteredDocuments.map((doc, index) => (
   <div key={index}>
     <p>📄 {doc.fileName}</p>
     <p>🟢 Uploaded Successfully</p>
