@@ -1,27 +1,36 @@
 const express = require("express");
 const cors = require("cors");
-const multer = require("multer");
-const { uploadDocument } = require("./controllers/uploadController");
+const path = require("path");
+
+const authRoutes = require("./routes/authRoutes");
+const documentRoutes = require("./routes/documentRoutes");
+const uploadRoutes = require("./routes/uploadRoutes");
+const aiRoutes = require("./routes/aiRoutes");
 
 const app = express();
-
+// Middleware
 app.use(cors());
+app.use(express.json());
 
-const storage = multer.diskStorage({
-  destination: "uploads/",
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
+// Serve uploaded files
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/documents", documentRoutes);
+app.use("/upload", uploadRoutes);
+app.use("/api/ai", aiRoutes);
+
+// Test route
+app.get("/test", (req, res) => {
+  console.log("TEST ROUTE HIT");
+  res.json({ message: "Backend is working" });
 });
-
-const upload = multer({ storage });
-
 app.get("/", (req, res) => {
   res.send("IdentityHub Backend is Running 🚀");
 });
 
-app.post("/upload", upload.single("document"), uploadDocument);
-
+// Start server
 app.listen(3001, () => {
   console.log("Server is running on port 3001");
 });

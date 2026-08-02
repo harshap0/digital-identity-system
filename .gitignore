@@ -1,4 +1,28 @@
 .DS_Store
+
+# Node modules
 backend/node_modules/
 frontend/node_modules/
+
+# Uploads
 backend/uploads/
+
+# Environment files
+.env
+backend/.env
+frontend/.env
+
+# VS Code
+.vscode/
+
+# ZIP files
+*.zip
+
+# Claude / Windsurf
+.claude/
+.agents/
+windsurf/
+
+# Logs
+*.log
+backend/.windsurf/
