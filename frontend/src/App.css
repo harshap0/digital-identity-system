@@ -124,6 +124,7 @@ input[type="text"]:focus{
     display:flex;
     justify-content:space-between;
     align-items:center;
+    gap: 30px;
 
     padding:24px;
 
@@ -152,11 +153,13 @@ input[type="text"]:focus{
 .document-card a{
     text-decoration:none;
     color:#2563eb;
-    font-weight:700;
+    font-size:24px;
+    font-weight:800;
+    transition:.3s;
 }
-
 .document-card a:hover{
     text-decoration:underline;
+    color:#1d4ed8;
 }
 
 .relationship-card {
@@ -230,45 +233,55 @@ input[type="text"]:focus{
 .preview-btn,
 .edit-btn,
 .delete-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    min-width:120px;
+    height:46px;
 
     border:none;
-
-    padding:12px 20px;
-
     border-radius:12px;
 
     cursor:pointer;
 
+    font-size:15px;
     font-weight:700;
 
-    transition:.3s;
+    transition:all .3s ease;
 }
 
 .preview-btn{
-    background:#3b82f6;
-    color:white;
+    background:#eff6ff;
+    color:#2563eb;
 }
 
 .preview-btn:hover{
     background:#2563eb;
+    color:white;
+    transform:translateY(-3px);
 }
 
 .edit-btn{
-    background:#f59e0b;
-    color:white;
+    background:#fef3c7;
+    color:#d97706;
 }
 
 .edit-btn:hover{
     background:#d97706;
-}
-
-.delete-btn{
-    background:#ef4444;
     color:white;
+    transform:translateY(-3px);
+}
+.delete-btn{
+    background:#fee2e2;
+    color:#dc2626;
 }
 
 .delete-btn:hover{
     background:#dc2626;
+    color:white;
+    transform:translateY(-3px);
 }
 .filter-buttons{
     display:flex;
@@ -283,10 +296,15 @@ input[type="text"]:focus{
     padding:12px 22px;
     border-radius:999px;
     cursor:pointer;
+
+    font-size:15px;
     font-weight:600;
+
     color:#475569;
-    box-shadow:0 5px 15px rgba(0,0,0,.06);
-    transition:.3s;
+
+    box-shadow:0 6px 16px rgba(0,0,0,.06);
+
+    transition:all .3s ease;
 }
 
 .filter-buttons button:hover{
@@ -338,4 +356,37 @@ input[type="text"]:focus{
 
 .document-icon{
     font-size:32px;
+}
+.document-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:15px;
+}
+
+.badge{
+    padding:8px 14px;
+    border-radius:999px;
+    font-size:14px;
+    font-weight:600;
+}
+
+.type{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+.skill{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.date{
+    background:#f3f4f6;
+    color:#475569;
+}
+
+.status{
+    background:#fef3c7;
+    color:#b45309;
 }

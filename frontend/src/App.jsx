@@ -244,7 +244,13 @@ const internshipCount = documents.filter(
 
   <div className="documents-header">
     <div>
-      <h2>📄 My Documents</h2>
+      <h2 className="section-title">
+  📂 Document Manager
+</h2>
+
+<p className="section-subtitle">
+  Organize, search and manage all your digital achievements in one place.
+</p>
       <p>Manage all your certificates, projects and resumes</p>
     </div>
 
@@ -295,10 +301,23 @@ const internshipCount = documents.filter(
   </a>
 </div>
 
-      <p>📂 {doc.documentType}</p>
-      <p>🧠 {doc.skill}</p>
-      <p>📅 {new Date(doc.createdAt).toLocaleDateString()}</p>
-      <p>✅ {doc.status}</p>
+      <div className="document-meta">
+  <span className="badge type">
+    📂 {doc.documentType}
+  </span>
+
+  <span className="badge skill">
+    🧠 {doc.skill}
+  </span>
+
+  <span className="badge date">
+    📅 {new Date(doc.createdAt).toLocaleDateString()}
+  </span>
+
+  <span className="badge status">
+    ✅ {doc.status}
+  </span>
+</div>
     </div>
 
     <div className="document-actions">
