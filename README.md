@@ -1,44 +1,24 @@
-# 🧠 IdentityHub
+# 🧠 IdentityHub (Prototype)
 
 > AI-powered Digital Identity System for Students
 
-IdentityHub helps students organize, manage, and visualize their academic and professional journey in one place.
+IdentityHub is a prototype web application that demonstrates how students can organize and manage their academic and professional documents in one place.
 
-Instead of storing certificates, resumes, projects, and internship letters across multiple folders, IdentityHub automatically categorizes documents, extracts skills, and provides AI-powered insights through an interactive dashboard.
-
----
-
-# ✨ Features
-
-- 📤 Upload Certificates, Projects & Resumes
-- 🤖 AI-powered Document Categorization
-- 🧠 Automatic Skill Extraction
-- 🔍 Smart Document Search & Filters
-- 📊 AI Identity Score Dashboard
-- 🧩 AI Relationship Engine
-- 📅 Digital Journey Timeline
-- ✅ Document Verification Status
-- 📂 Clean Document Management Interface
+The project showcases a modern dashboard interface for uploading, organizing, searching, and visualizing digital achievements. It was built as a prototype for the MemoryVerse AI '26 Hackathon.
 
 ---
 
-# 📸 Screenshots
+# ✨ Current Features
 
-## 🏠 Home Page
-
-![Home](screenshots/home.png)
-
----
-
-## 🤖 AI Identity Score
-
-![AI Score](screenshots/ai-score.png)
-
----
-
-## 📂 Document Manager
-
-![Document Manager](screenshots/document-manager.png)
+- 📤 Upload documents
+- 📂 Document management interface
+- 🔍 Search and filter documents
+- 📊 AI Identity Score (Prototype UI)
+- 🧠 Skills visualization
+- 🚀 Best Role recommendation (Prototype)
+- 📅 Digital Journey Timeline (Prototype)
+- 🧩 AI Relationship section (Prototype)
+- 📱 Responsive modern UI
 
 ---
 
@@ -59,24 +39,22 @@ Instead of storing certificates, resumes, projects, and internship letters acros
 
 ---
 
-# 📌 Project Workflow
+# 📌 Project Structure
 
 ```text
-Upload Document
+Frontend (React)
         │
         ▼
-Backend Processing
+Document Upload
         │
         ▼
-AI Categorization
-(Type • Skills • Status)
+Backend (Node.js + Express)
         │
         ▼
-React Dashboard
+Document Management
         │
- ┌──────┼─────────────┐
- ▼      ▼             ▼
-Search AI Score Timeline
+        ▼
+Dashboard Visualization
 ```
 
 ---
@@ -107,24 +85,34 @@ npm start
 
 ---
 
-# 🎯 Future Improvements
+# 🚧 Prototype Status
 
-- OCR for scanned documents
-- Resume Parser
-- Semantic Search
-- Embeddings
-- Vector Database
-- RAG-powered AI Assistant
-- AI Career Recommendations
-- AI Skill Gap Analysis
+This repository contains the prototype version of IdentityHub.
+
+Current focus:
+
+- Modern dashboard UI
+- Document management
+- AI dashboard interface
+- User experience
+
+Planned future improvements include:
+
+- AI document categorization
+- Automatic skill extraction
+- OCR support
+- Resume parsing
+- Semantic search
+- AI career recommendations
+- RAG-powered assistant
 
 ---
 
 # 💡 Problem Statement
 
-Students usually store certificates, resumes, internship letters, and project reports across different folders and cloud drives.
+Students often store certificates, resumes, internship letters, and project reports across multiple folders and cloud storage platforms.
 
-IdentityHub solves this by creating an AI-powered digital identity that automatically organizes, categorizes, connects, and visualizes achievements in a single dashboard.
+IdentityHub aims to simplify this by providing a single dashboard for managing and visualizing academic and professional achievements.
 
 ---
 
