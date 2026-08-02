@@ -191,56 +191,71 @@ const internshipCount = documents.filter(
   </p>
 </div>
 
-          <div className="card">
+          
+  <div className="card ai-score-card">
   <h3>🤖 AI Identity Score</h3>
 
-  <h1>{analysis ? analysis.score : aiScore}/100</h1>
+<h1>{analysis ? analysis.score : aiScore}/100</h1>
 
-  <div className="progress-bar">
-    <div
-      className="progress-fill"
-      style={{
-        width: `${analysis ? analysis.score : aiScore}%`,
-      }}
-    ></div>
+<div className="progress-bar">
+  <div
+    className="progress-fill"
+    style={{
+      width: `${analysis ? analysis.score : aiScore}%`,
+    }}
+  ></div>
+</div>
+
+<p>{analysis ? analysis.level : aiLevel} ⭐</p>
+<div className="ai-content">
+
+  <div className="ai-box">
+    <h4>💪 Strengths</h4>
+    <div>
+  {analysis
+    ? analysis.strengths.map((skill, index) => (
+        <span key={index} className="strength-chip">
+          ✅ {skill}
+        </span>
+      ))
+    : "No strengths available"}
+</div>
   </div>
 
-  <p>{analysis ? analysis.level : aiLevel} ⭐</p>
+  <div className="ai-box">
+    <h4>📚 Missing Skills</h4>
+    <div>
+  {analysis
+    ? analysis.missingSkills.map((skill, index) => (
+        <span key={index} className="skill-chip">
+          ❌ {skill}
+        </span>
+      ))
+    : "No missing skills"}
+</div>
+  </div>
 
-  {analysis && (
-    <>
-      <hr />
-
-      <h4>💪 Strengths</h4>
-
-      <ul>
-        {analysis.strengths.map((item, index) => (
-          <li key={index}>✅ {item}</li>
-        ))}
-      </ul>
-
-      <h4>📚 Missing Skills</h4>
-
-      <ul>
-        {analysis.missingSkills.map((item, index) => (
-          <li key={index}>❌ {item}</li>
-        ))}
-      </ul>
-
-      <h4>💼 Recommended Roles</h4>
-
-      <ul>
-        {analysis.recommendedRoles.map((item, index) => (
-          <li key={index}>🚀 {item}</li>
-        ))}
-      </ul>
-    </>
-  )}
+  <div className="ai-box">
+    <h4>🚀 Best Role</h4>
+    <p>
+      {analysis
+        ? analysis.recommendedRoles[0]
+        : "No recommendation"}
+    </p>
+  </div>
 
 </div>
-        </div>
+
+</div>
+</div>
+
+     
+        
+        </section>
 
         <div className="card">
+          
+      
 
   <div className="documents-header">
     <div>
@@ -380,7 +395,7 @@ const internshipCount = documents.filter(
             ))}
           </div>
                 </div>
-      </section>
+      
 
       {editingDoc && (
   <div
