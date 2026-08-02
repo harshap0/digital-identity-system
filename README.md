@@ -58,17 +58,21 @@ Search Relationships Timeline
 
 # 📸 Screenshots
 
-> Add screenshots of your application here.
+## 🏠 Home Page
 
-Example:
-
-- Home Page
-- Upload Feature
-- AI Dashboard
-- AI Relationships
-- Digital Journey Timeline
+![Home](screenshots/home.png)
 
 ---
+
+## 🤖 AI Identity Score
+
+![AI Identity Score](screenshots/ai-score.png)
+
+---
+
+## 📂 Document Manager
+
+![Document Manager](screenshots/document-manager.png)
 
 # ⚙️ Installation
 
