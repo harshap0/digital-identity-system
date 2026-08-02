@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import api from "./services/api";
+import Navbar from "./Navbar";
 import "./App.css";
 
 function App() {
@@ -8,6 +9,8 @@ function App() {
   const [filter, setFilter] = useState("All");
   const [analysis, setAnalysis] = useState(null);
   const [editingDoc, setEditingDoc] = useState(null);
+  const [previewDoc, setPreviewDoc] = useState(null);
+  
   useEffect(() => {
   console.log("App Mounted");
   fetchDocuments();
@@ -113,6 +116,7 @@ const internshipCount = documents.filter(
 
   return (
     <div className="app">
+      <Navbar />
       <header className="hero">
         <h1>IdentityHub</h1>
         <p>Your AI-powered Digital Identity System</p>
@@ -139,78 +143,136 @@ const internshipCount = documents.filter(
         <h2>📊 AI Journey Dashboard</h2>
 
         <div className="stats-grid">
-          <div className="card">
-            <h3>📜 Certificates</h3>
-            <h1>{certificateCount}</h1>
-          </div>
+          <div className="card stat-card certificates">
+  <div className="stat-icon">📜</div>
 
-          <div className="card">
-            <h3>💻 Projects</h3>
-            <h1>{projectCount}</h1>
-          </div>
+  <h3>Certificates</h3>
 
-          <div className="card">
-            <h3>🧠 Skills</h3>
-            <h1>{skillCount}</h1>
-          </div>
+  <h1>{certificateCount}</h1>
 
-          <div className="card">
-            <h3>💼 Internships</h3>
-            <h1>{internshipCount}</h1>
-          </div>
+  <p className="stat-subtitle">
+    Verified Achievements
+  </p>
+</div>
 
-          <div className="card">
+          <div className="card stat-card projects">
+  <div className="stat-icon">💻</div>
+
+  <h3>Projects</h3>
+
+  <h1>{projectCount}</h1>
+
+  <p className="stat-subtitle">
+    Portfolio Projects
+  </p>
+</div>
+
+          <div className="card stat-card skills">
+  <div className="stat-icon">🧠</div>
+
+  <h3>Skills</h3>
+
+  <h1>{skillCount}</h1>
+
+  <p className="stat-subtitle">
+    Technical Expertise
+  </p>
+</div>
+
+          <div className="card stat-card internships">
+  <div className="stat-icon">💼</div>
+
+  <h3>Internships</h3>
+
+  <h1>{internshipCount}</h1>
+
+  <p className="stat-subtitle">
+    Industry Experience
+  </p>
+</div>
+
+          
+  <div className="card ai-score-card">
   <h3>🤖 AI Identity Score</h3>
 
-  <h1>{analysis ? analysis.score : aiScore}/100</h1>
+<h1>{analysis ? analysis.score : aiScore}/100</h1>
 
-  <div className="progress-bar">
-    <div
-      className="progress-fill"
-      style={{
-        width: `${analysis ? analysis.score : aiScore}%`,
-      }}
-    ></div>
+<div className="progress-bar">
+  <div
+    className="progress-fill"
+    style={{
+      width: `${analysis ? analysis.score : aiScore}%`,
+    }}
+  ></div>
+</div>
+
+<p>{analysis ? analysis.level : aiLevel} ⭐</p>
+<div className="ai-content">
+
+  <div className="ai-box">
+    <h4>💪 Strengths</h4>
+    <div>
+  {analysis
+    ? analysis.strengths.map((skill, index) => (
+        <span key={index} className="strength-chip">
+          ✅ {skill}
+        </span>
+      ))
+    : "No strengths available"}
+</div>
   </div>
 
-  <p>{analysis ? analysis.level : aiLevel} ⭐</p>
+  <div className="ai-box">
+    <h4>📚 Missing Skills</h4>
+    <div>
+  {analysis
+    ? analysis.missingSkills.map((skill, index) => (
+        <span key={index} className="skill-chip">
+          ❌ {skill}
+        </span>
+      ))
+    : "No missing skills"}
+</div>
+  </div>
 
-  {analysis && (
-    <>
-      <hr />
-
-      <h4>💪 Strengths</h4>
-
-      <ul>
-        {analysis.strengths.map((item, index) => (
-          <li key={index}>✅ {item}</li>
-        ))}
-      </ul>
-
-      <h4>📚 Missing Skills</h4>
-
-      <ul>
-        {analysis.missingSkills.map((item, index) => (
-          <li key={index}>❌ {item}</li>
-        ))}
-      </ul>
-
-      <h4>💼 Recommended Roles</h4>
-
-      <ul>
-        {analysis.recommendedRoles.map((item, index) => (
-          <li key={index}>🚀 {item}</li>
-        ))}
-      </ul>
-    </>
-  )}
+  <div className="ai-box">
+    <h4>🚀 Best Role</h4>
+    <p>
+      {analysis
+        ? analysis.recommendedRoles[0]
+        : "No recommendation"}
+    </p>
+  </div>
 
 </div>
-        </div>
+
+</div>
+</div>
+
+     
+        
+        </section>
 
         <div className="card">
-          <h3>📄 My Documents</h3>
+          
+      
 
+  <div className="documents-header">
+    <div>
+      <h2 className="section-title">
+  📂 Document Manager
+</h2>
+
+<p className="section-subtitle">
+  Organize, search and manage all your digital achievements in one place.
+</p>
+      <p>Manage all your certificates, projects and resumes</p>
+    </div>
+
+    <span className="document-count">
+      {documents.length} Files
+    </span>
+  </div>
 <div className="filter-buttons">
   <button onClick={() => setFilter("All")}>All</button>
   <button onClick={() => setFilter("Certificate")}>Certificates</button>
@@ -237,49 +299,75 @@ const internshipCount = documents.filter(
           {filteredDocuments.map((doc) => (
   <div key={doc.id} className="document-card">
     <div>
-      <p>
-        <a
-          href={`http://localhost:3001/uploads/${doc.fileName}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          📄 {doc.fileName}
-        </a>
-      </p>
+      <div className="document-title">
+  <span className="document-icon">
+    {doc.documentType === "Certificate" && "📜"}
+    {doc.documentType === "Project" && "💻"}
+    {doc.documentType === "Internship" && "💼"}
+    {doc.documentType === "Resume" && "📄"}
+  </span>
 
-      <p>📂 {doc.documentType}</p>
-      <p>🧠 {doc.skill}</p>
-      <p>📅 {new Date(doc.createdAt).toLocaleDateString()}</p>
-      <p>✅ {doc.status}</p>
+  <a
+    href={`http://localhost:3001/uploads/${doc.fileName}`}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    {doc.fileName}
+  </a>
+</div>
+
+      <div className="document-meta">
+  <span className="badge type">
+    📂 {doc.documentType}
+  </span>
+
+  <span className="badge skill">
+    🧠 {doc.skill}
+  </span>
+
+  <span className="badge date">
+    📅 {new Date(doc.createdAt).toLocaleDateString()}
+  </span>
+
+  <span className="badge status">
+    ✅ {doc.status}
+  </span>
+</div>
     </div>
 
     <div className="document-actions">
-  <button
-  type="button"
-  className="edit-btn"
-  onClick={() => {
-    console.log("Before:", editingDoc);
-    console.log("Clicked:", doc);
-    setEditingDoc(doc);
-  }}
->
-  ✏️ Edit
-</button>
+      <button
+        className="preview-btn"
+        onClick={() => setPreviewDoc(doc)}
+      >
+        👁 Preview
+      </button>
 
-  <button
-    onClick={async () => {
-      await api.delete(`/api/documents/${doc.id}`);
-      fetchDocuments();
-    }}
-    className="delete-btn"
-  >
-    🗑 Delete
-  </button>
-</div>
+      <button
+        type="button"
+        className="edit-btn"
+        onClick={() => {
+          console.log("Clicked:", doc);
+          setEditingDoc(doc);
+        }}
+      >
+        ✏️ Edit
+      </button>
+
+      <button
+        className="delete-btn"
+        onClick={async () => {
+          await api.delete(`/api/documents/${doc.id}`);
+          fetchDocuments();
+        }}
+      >
+        🗑 Delete
+      </button>
+    </div>
   </div>
 ))}
-        </div>
-
+</div>
+        
         <div className="bottom-grid">
           <div className="card">
             <h3>🧠 AI Relationships</h3>
@@ -307,29 +395,67 @@ const internshipCount = documents.filter(
             ))}
           </div>
                 </div>
-      </section>
+      
 
       {editingDoc && (
   <div
     style={{
-      position: "fixed",
-      top: "50px",
-      left: "50px",
-      background: "white",
-      border: "4px solid red",
-      padding: "20px",
-      zIndex: 99999,
+  position: "fixed",
+  inset: 0,
+  background: "rgba(0,0,0,0.6)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  zIndex: 99999,
+}}
+  >
+    <div
+  style={{
+    width: "500px",
+    background: "white",
+    borderRadius: "12px",
+    padding: "25px",
+    boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+  }}
+>
+          <div
+  style={{
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: "15px",
+  }}
+>
+  <h3>✏️ Editing Document</h3>
+
+  <button
+    onClick={() => setEditingDoc(null)}
+    style={{
+      border: "none",
+      background: "transparent",
+      fontSize: "22px",
+      cursor: "pointer",
     }}
   >
-          <h3>✏️ Editing Document</h3>
+    ✖
+  </button>
+</div>
 
           <p>
             <strong>{editingDoc.fileName}</strong>
           </p>
 
-          <label>Document Type</label>
+          <label style={{ display: "block", marginBottom: "8px" }}>
+  Document Type
+</label>
 
 <select
+  style={{
+    width: "100%",
+    padding: "10px",
+    marginBottom: "20px",
+    borderRadius: "8px",
+  }}
   value={editingDoc.documentType}
   onChange={(e) =>
     setEditingDoc({
@@ -338,6 +464,7 @@ const internshipCount = documents.filter(
     })
   }
 >
+
   <option>Certificate</option>
   <option>Project</option>
   <option>Internship</option>
@@ -347,10 +474,23 @@ const internshipCount = documents.filter(
 <br />
 <br />
 
-<label>Skill</label>
+<label
+  style={{
+    display: "block",
+    marginBottom: "8px",
+  }}
+>
+  Skill
+</label>
 
 <input
   type="text"
+  style={{
+    width: "100%",
+    padding: "10px",
+    borderRadius: "8px",
+    boxSizing: "border-box",
+  }}
   value={editingDoc.skill}
   onChange={(e) =>
     setEditingDoc({
@@ -359,18 +499,80 @@ const internshipCount = documents.filter(
     })
   }
 />
+
+
 <br />
 <br />
 
 <button
   className="upload-btn"
+  style={{
+    width: "100%",
+    marginTop: "20px",
+  }}
   onClick={saveDocument}
 >
   💾 Save Changes
 </button>
         </div>
+        </div>
       )}
 
+      {previewDoc && (
+        <div
+  style={{
+    position: "fixed",
+    inset: 0,
+    background: "rgba(0,0,0,0.6)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 99999,
+  }}
+>
+  <div
+    style={{
+      width: "80%",
+      height: "85%",
+      background: "white",
+      borderRadius: "12px",
+      padding: "20px",
+      boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+    }}
+  >
+          <div
+  style={{
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: "10px",
+  }}
+>
+  <h3>{previewDoc.fileName}</h3>
+
+  <button
+    onClick={() => setPreviewDoc(null)}
+    style={{
+      fontSize: "20px",
+      border: "none",
+      background: "transparent",
+      cursor: "pointer",
+    }}
+  >
+    ✖
+  </button>
+</div>
+
+          <iframe
+            src={`http://localhost:3001/uploads/${previewDoc.fileName}`}
+            width="100%"
+            height="85%"
+            title="Preview"
+          />
+
+        </div>
+        </div>
+      )}
     </div>
   );
 }
